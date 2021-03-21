@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks';
 
-import App from './App';
+
+// import App from './App';
+import Login from "./components/Login"
 import './index.css';
 // import * as serviceWorker from './serviceWorker';
 
@@ -15,7 +17,8 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      {/* <App /> */}
+      <Login/>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
