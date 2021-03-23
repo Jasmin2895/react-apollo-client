@@ -1,4 +1,13 @@
 .main-container {
     min-height: 100vh;
-    background-color: antiquewhite;
+    margin: 40px;
+}
+
+.search-countries{
+    width: 100%;
+    margin: 40px 0;
+    justify-content: center;
+    .add-countries{
+        margin-left: 20px;
+    }
 }

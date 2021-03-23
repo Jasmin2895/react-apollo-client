@@ -1,19 +1,19 @@
 import React from "react"
-import { Table, Tag, Radio, Space } from 'antd';
+import { Table, Tag } from 'antd';
 
 const CountryTable = () => {
     const bottom = "bottomCenter";
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
+            title: 'Country Name',
+            dataIndex: 'countryName',
+            key: 'countryName',
             render: text => <a>{text}</a>,
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
+            title: 'Population',
+            dataIndex: 'population',
+            key: 'population',
         },
         {
             title: 'Address',
@@ -21,7 +21,7 @@ const CountryTable = () => {
             key: 'address',
         },
         {
-            title: 'Tags',
+            title: 'Currency',
             key: 'tags',
             dataIndex: 'tags',
             render: tags => (
@@ -43,12 +43,12 @@ const CountryTable = () => {
         {
             title: 'Action',
             key: 'action',
-            render: (text, record) => (
-            <Space size="middle">
-                <a>Invite {record.name}</a>
-                <a>Delete</a>
-            </Space>
-            ),
+            // render: (text, record) => (
+            // <Space size="middle">
+            //     <a>Invite {record.name}</a>
+            //     <a>Delete</a>
+            // </Space>
+            // ),
         },
     ];
 
