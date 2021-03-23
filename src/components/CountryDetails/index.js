@@ -1,95 +1,39 @@
 import React,{useState} from "react";
-import { Table, Tag, Radio, Space } from 'antd';
+import { Select, Button, Row, Col } from 'antd';
 import CountryTable from "./CountryTable";
 // import { Layout } from "antd";  check if this is possible.
 import "./index.scss";
 
+const { Option } = Select;
+
 const CountryDetails = () => {
-    const [bottom, setBottom] = useState('bottomCenter')
-    const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        render: text => <a>{text}</a>,
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    {
-        title: 'Tags',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: tags => (
-        <span>
-            {tags.map(tag => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-                color = 'volcano';
-            }
-            return (
-                <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-                </Tag>
-            );
-            })}
-        </span>
-        ),
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (text, record) => (
-        <Space size="middle">
-            <a>Invite {record.name}</a>
-            <a>Delete</a>
-        </Space>
-        ),
-    },
-    ];
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-        },
-    ];
-    const countryList = () => {
-        return( <div>
-            <Table
-              columns={columns}
-              pagination={{ position: [bottom] }}
-              dataSource={data}
-            />
-          </div>)
+    const children = [];
+    for (let i = 10; i < 36; i++) {
+        children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
+      }
+
+    const handleChange = (value) =>{
+        console.log(`selected ${value}`);
     }
+    const SearchCountries = () => {
+        return(
+        <Row className="search-countries">
+            <Select mode="tags" style={{ width: '40%' }} placeholder="Search Countries" onChange={handleChange}>
+                {children}
+            </Select>
+        
+            <Button type="primary" className="add-countries">
+                Add Countries +
+            </Button>
+        </Row>       
+        )
+    }    
     return(
        <>
         <main className="main-container">
+            
             <div className="country-details">
+                {SearchCountries()}
                 <CountryTable/>
             </div>
         </main>
