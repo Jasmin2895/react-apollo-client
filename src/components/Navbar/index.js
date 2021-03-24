@@ -32,8 +32,11 @@ const Navbar = () => {
     return(
         <nav className="menu-bar">
             <Row>
-                <Col className="logo" span={12}>
+                <Col span={6}>
                     <a href="">Home</a>
+                </Col>
+                <Col span={6}>
+                    <a href="/savedCountryList">Selected Country List</a>
                 </Col>
                 <Col className="menuCon" span={12}>
                     <a href="">Sign In</a>

@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect, Route, Switch, BrowserRouter } from 'react-router-dom';
 import Login from "./components/Login";
 import CountryDetails from "./components/CountryDetails";
+import SavedCountryList from "./components/SavedCountryList"
 import ErrorPage from "./components/ErrorPage";
 import Navbar from "./components/Navbar"
 
@@ -13,6 +14,7 @@ const App = () => {
       <Switch>
           <Route exact path='/' component={Login}/>
           <Route path='/countryDetails' component={CountryDetails}/>
+          <Route path='/savedCountryList' component={SavedCountryList}/>
           <Route path="*"  component={ErrorPage} />
       </Switch>
       </BrowserRouter>
