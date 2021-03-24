@@ -1,13 +1,14 @@
 import axios from "axios";
 import {BASE_URL} from "./../constants"
+import getCookie from "./../utils/getCookie"
 
 const beforeRequest = (config) =>{
     console.log("config", config)
     let headers = {}
     let defaultHeaders = config.headers;
-    if(config &&config.url != "/api/v1/login"){
-        headers["auth-token"] = document.cookie["auth-token"];
-    }
+    // if(config &&config.url != "/api/v1/login"){
+    //     headers["auth-token"] = document.cookie["auth-token"];
+    // }
     
     // const currentTime = new Date().getTime();
     

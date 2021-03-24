@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { postLoginAPI } from "./../../apis/apiEndpoints"
-import getCookie from "./../../utils"
 import "antd/dist/antd.css";
 import "./index.css";
 
@@ -12,8 +11,11 @@ const Login = () => {
     const onFinish = async(values) => {
       console.log('Received values of form: ', values);
       const data = await postLoginAPI(values.username, values.password);
-      console.log("onFinish", data)
-      console.log("document.cookie",getCookie("auth-token"))
+      // change to success message from server.
+      if(data.status === 200){
+        history.push("/countryDetails")
+      }
+      
     };
   
     return (<Form
