@@ -11,3 +11,10 @@
         margin-left: 20px;
     }
 }
+
+.search-items-list {
+    min-width: 100%;
+    .ant-list {
+        min-width: 100%;
+    }
+}
