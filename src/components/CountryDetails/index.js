@@ -1,6 +1,5 @@
 import React,{useState, useCallback, useEffect} from "react";
 import { Select, Button, Row, Col, Input, List, Avatar, Skeleton } from 'antd';
-import CountryTable from "./CountryTable";
 import { debounce } from "./../../utils/debounce"
 import { getCountriesDetails } from "./../../apis/apiEndpoints"
 import { useQuery } from "@apollo/react-hooks"
@@ -101,7 +100,6 @@ const CountryDetails = () => {
             
             <div className="country-details">
                 {SearchCountries()}
-                <CountryTable/>
             </div>
         </main>
        </>
