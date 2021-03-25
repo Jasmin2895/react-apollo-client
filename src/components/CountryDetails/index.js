@@ -1,7 +1,7 @@
 import React,{useState, useCallback, useEffect} from "react";
 import { Select, Button, Row, Col, Input, List, Avatar, Skeleton } from 'antd';
 import { debounce } from "./../../utils/debounce"
-import { getCountriesDetails } from "./../../apis/apiEndpoints"
+import { postAddCountry } from "./../../apis/apiEndpoints"
 import { useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 import {graphql} from 'react-apollo'
@@ -11,7 +11,6 @@ import "./index.scss";
 const { Search } = Input;
 const { Option } = Select;
 const DisplaySearchResult = ({searchString}) => {
-    const count = 3;
     let GET_COUNTRIES_BY_NAME = gql`
     {
         getCountries(name: "${searchString}") {
@@ -36,6 +35,18 @@ const DisplaySearchResult = ({searchString}) => {
     }
 
     console.log("data inside display search result", data)
+
+    const handleAddCountry = async(data) => {
+        console.log("data", data)
+        let payload = {
+            name: data.name,
+            population: data.population,
+            exchangeRate: data.exchangeRate === -1 ? 0: data.exchangeRate,
+            currency: data.currencies[0].code
+        }
+        const response = await postAddCountry(payload)
+        console.log("response", response)
+    }
     
 
     return(<List
@@ -52,9 +63,9 @@ const DisplaySearchResult = ({searchString}) => {
               description="Ant Design, a design language for background applications, is refined by Ant UED Team"
             />
             <List.Item>
-            <Button type="primary" className="add-countries">
-                Add Country +
-            </Button>
+                <Button type="primary" className="add-countries" onClick={()=>handleAddCountry(item)}>
+                   Add Country +
+                </Button>
           </List.Item>
           </List.Item>
           
