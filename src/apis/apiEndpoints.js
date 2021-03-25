@@ -23,9 +23,18 @@ export const postLoginAPI = async(name, password) => {
 // add jwt as important header in all the APIs
 
 export const postAddCountry = async(payload) => {
+    console.log("payload", payload)
     const {data} = await graphqlNodeAxiosInstance.post(API_ENDPOINTS.COUNTRY_DETAILS, {
-        payload
+        ...payload
     })
+    return data;
+}
+
+
+export const getCountryDetails = async() => {
+    const {data} = await graphqlNodeAxiosInstance.get(API_ENDPOINTS.COUNTRY_DETAILS)
+    console.log("getCountryDetails", data)
+
     return data;
 }
 

@@ -1,16 +1,25 @@
-import React from "react";
-import { Table, Tag } from 'antd';
-
+import React, {useEffect, useState} from "react";
+import { Table, Tag, Input, Row, Button } from 'antd';
+import { getCountryDetails } from "./../../apis/apiEndpoints"
 
 
 const SavedCountryList = () => {
-
+    const [countriesData, updateCountriesData] = useState([])
+    const [inputVal, setInputVal] = useState(0)
     const bottom = "bottomCenter";
+    useEffect(()=> {
+        async function getCountriesList() {
+            const data = await getCountryDetails();
+            console.log("getCountriesList", data)
+            updateCountriesData(data)
+        }
+        getCountriesList();
+    },[])
     const columns = [
         {
             title: 'Country Name',
-            dataIndex: 'countryName',
-            key: 'countryName',
+            dataIndex: 'name',
+            key: 'name',
             render: text => <a>{text}</a>,
         },
         {
@@ -19,68 +28,43 @@ const SavedCountryList = () => {
             key: 'population',
         },
         {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
+            title: 'Exchange Rate',
+            dataIndex: 'exchangeRate',
+            key: 'exchangeRate',
         },
         {
             title: 'Currency',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: tags => (
-            <span>
-                {tags.map(tag => {
-                let color = 'green';
-                return (
-                    <Tag color={color} key={tag}>
-                    {tag.toUpperCase()}
-                    </Tag>
-                );
-                })}
-            </span>
+            key: 'currency',
+            dataIndex: 'currency',
+            render: currency => (
+                <Tag color="green" key={currency}>
+                    {currency}
+                </Tag>
             ),
         },
         {
-            title: 'Action',
-            key: 'action',
-            // render: (text, record) => (
-            // <Space size="middle">
-            //     <a>Invite {record.name}</a>
-            //     <a>Delete</a>
-            // </Space>
-            // ),
+            title: 'Converted Amount',
+            dataIndex: 'exchangeRate',
+            render: exchangeRate => {
+                let val = exchangeRate * inputVal;
+                return(<Tag color="geekblue">{val}</Tag>)
+            },
         },
     ];
 
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-        },
-    ];
+    const onChange = (event) => {
+        let value = event.target.value
+        setInputVal(value)
+    }
 
     return(<div>
+        <Row className="calculate-cost">
+            <Input placeholder="Enter the value in number..."  style={{ width: 400 }} onPressEnter={(e)=> onChange(e)}/>
+        </Row>
         <Table
             columns={columns}
             pagination={{ position: [bottom] }}
-            dataSource={data}
+            dataSource={countriesData}
         />
     </div>)
 }
