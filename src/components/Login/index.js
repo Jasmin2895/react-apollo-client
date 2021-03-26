@@ -18,7 +18,7 @@ const Login = () => {
         console.log('login result', data);
         // change to success message from server.
         if (data) {
-            history.push('/countryDetails');
+            history.push('/country-details');
         } else {
             setError(true);
         }

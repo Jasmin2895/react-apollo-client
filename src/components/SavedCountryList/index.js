@@ -1,26 +1,28 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from 'react';
 import { Table, Tag, Input, Row, Button } from 'antd';
-import { getCountryDetails } from "./../../apis/apiEndpoints"
+import { getCountryDetails } from './../../apis/apiEndpoints';
+import Navbar from './../Navbar';
 
+import './index.scss';
 
 const SavedCountryList = () => {
-    const [countriesData, updateCountriesData] = useState([])
-    const [inputVal, setInputVal] = useState(0)
-    const bottom = "bottomCenter";
-    useEffect(()=> {
+    const [countriesData, updateCountriesData] = useState([]);
+    const [inputVal, setInputVal] = useState(0);
+    const bottom = 'bottomCenter';
+    useEffect(() => {
         async function getCountriesList() {
             const data = await getCountryDetails();
-            console.log("getCountriesList", data)
-            updateCountriesData(data)
+            console.log('getCountriesList', data);
+            updateCountriesData(data);
         }
         getCountriesList();
-    },[])
+    }, []);
     const columns = [
         {
             title: 'Country Name',
             dataIndex: 'name',
             key: 'name',
-            render: text => <a>{text}</a>,
+            render: (text) => <a>{text}</a>,
         },
         {
             title: 'Population',
@@ -36,7 +38,7 @@ const SavedCountryList = () => {
             title: 'Currency',
             key: 'currency',
             dataIndex: 'currency',
-            render: currency => (
+            render: (currency) => (
                 <Tag color="green" key={currency}>
                     {currency}
                 </Tag>
@@ -45,27 +47,39 @@ const SavedCountryList = () => {
         {
             title: 'Converted Amount',
             dataIndex: 'exchangeRate',
-            render: exchangeRate => {
+            render: (exchangeRate) => {
                 let val = exchangeRate * inputVal;
-                return(<Tag color="geekblue">{val}</Tag>)
+                return <Tag color="geekblue">{val}</Tag>;
             },
         },
     ];
 
     const onChange = (event) => {
-        let value = event.target.value
-        setInputVal(value)
-    }
+        let value = event.target.value;
+        setInputVal(value);
+    };
 
-    return(<div>
-        <Row className="calculate-cost">
-            <Input placeholder="Enter the value in number..."  style={{ width: 400 }} onPressEnter={(e)=> onChange(e)}/>
-        </Row>
-        <Table
-            columns={columns}
-            pagination={{ position: [bottom] }}
-            dataSource={countriesData}
-        />
-    </div>)
-}
+    return (
+        <>
+            <Navbar></Navbar>
+            <main className="main-container">
+                <Row className="calculate-cost">
+                    <h3>Enter value</h3>
+                    <Input
+                        className="calculate-cost-input"
+                        placeholder="Enter the value in number..."
+                        style={{ width: 400 }}
+                        onPressEnter={(e) => onChange(e)}
+                    />
+                </Row>
+                <Table
+                    className="country-rate-table"
+                    columns={columns}
+                    pagination={{ position: [bottom] }}
+                    dataSource={countriesData}
+                />
+            </main>
+        </>
+    );
+};
 export default SavedCountryList;
