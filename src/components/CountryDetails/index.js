@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { Select, Button, Row, Input, List, Avatar } from 'antd';
+import React, { useState, useCallback } from 'react';
+import { Button, Row, Input, List, Avatar } from 'antd';
 import { debounce } from './../../utils/debounce';
 import { postAddCountry } from './../../apis/apiEndpoints';
 import { useQuery } from '@apollo/react-hooks';
