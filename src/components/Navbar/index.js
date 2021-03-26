@@ -1,50 +1,27 @@
-import React, {useState} from "react";
+import React from 'react';
 import { Menu, Row, Col } from 'antd';
-import "./index.scss";
-import { Route } from "react-router";
+import './index.scss';
 
-
-const { SubMenu , ItemGroup, Item } = Menu;
-
+// const { SubMenu, ItemGroup, Item } = Menu;
 
 const Navbar = () => {
-    const RightMenuOptions = () => {
-        return(
-            <Menu>
-                <Item key="mail">
-                    <a href="">Signin</a>
-                </Item>
-            </Menu>
-        )
-    }
-
-    const LeftMenuOptions = () => {
-        return(
-            <Menu>
-                <Item key="mail">
-                    <a href="">Home</a>
-                </Item>
-            </Menu>
-        )
-    }
-
-
-    return(
-        <nav className="menu-bar">
-            <Row>
-                <Col span={6}>
-                    <a href="">Home</a>
+    return (
+        <nav className="navbar">
+            <Row className="navbar-items">
+                <Col span={3} className="navbar-item">
+                    <a href="/country-details">Country Details</a>
                 </Col>
-                <Col span={6}>
-                    <a href="/savedCountryList">Selected Country List</a>
+                <Col span={6} className="navbar-item">
+                    <a href="/saved-country-list">
+                        Selected Country List
+                    </a>
                 </Col>
-                <Col className="menuCon" span={12}>
-                    <a href="">Sign In</a>
+                <Col className="navbar-item logout" span={14}>
+                    <a href="/">Logout</a>
                 </Col>
             </Row>
         </nav>
-    )
-}
-
+    );
+};
 
 export default Navbar;
