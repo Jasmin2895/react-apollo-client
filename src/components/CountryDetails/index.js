@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Button, Row, Input, List, Avatar } from 'antd';
+import { Button, Row, Input, List, Avatar, notification } from 'antd';
 import { debounce } from './../../utils/debounce';
 import { postAddCountry } from './../../apis/apiEndpoints';
 import { useQuery } from '@apollo/react-hooks';
@@ -31,6 +31,13 @@ const DisplaySearchResult = ({ searchString }) => {
         listData = data.getCountries;
     }
 
+    const openNotificationWithIcon = (type) => {
+        notification[type]({
+            message: 'Country Details',
+            description:
+                'This country has been saved to Selected Country List!!',
+        });
+    };
     const handleAddCountry = async (data) => {
         let payload = {
             name: data.name,
@@ -40,7 +47,9 @@ const DisplaySearchResult = ({ searchString }) => {
             currency: data.currencies[0].code,
         };
         const response = await postAddCountry(payload);
-        console.log('response', response);
+        if (response && response.status === 201) {
+            openNotificationWithIcon('success');
+        }
     };
 
     return (
@@ -77,16 +86,11 @@ const DisplaySearchResult = ({ searchString }) => {
 
 const CountryDetails = () => {
     const [searchValue, setSearchValue] = useState('');
-
     const onSearch = (value) => {
         setSearchValue(value);
         // using debounce concept to make functions calls.
     };
-    // FIXME: route all the request from debounce function...
-    const debounceOnSearch = useCallback(
-        debounce('onSearch', 2000),
-        [],
-    );
+    const debounceOnSearch = useCallback(debounce(onSearch, 400), []);
 
     const SearchCountries = () => {
         return (
@@ -94,7 +98,7 @@ const CountryDetails = () => {
                 <Row className="search-countries">
                     <Search
                         placeholder="search countries by name"
-                        onSearch={onSearch}
+                        onSearch={debounceOnSearch}
                     />
                 </Row>
                 <Row>
