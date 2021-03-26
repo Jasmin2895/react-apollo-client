@@ -5,11 +5,9 @@ import { postAddCountry } from './../../apis/apiEndpoints';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Navbar from './../Navbar';
-// import { Layout } from "antd";  check if this is possible.
 import './index.scss';
 
 const { Search } = Input;
-const { Option } = Select;
 const DisplaySearchResult = ({ searchString }) => {
     let GET_COUNTRIES_BY_NAME = gql`
     {
@@ -28,16 +26,12 @@ const DisplaySearchResult = ({ searchString }) => {
     }
 `;
     const { loading, error, data } = useQuery(GET_COUNTRIES_BY_NAME);
-    const [initLoading, setInitLoading] = useState(true);
     let listData = undefined;
     if (data && data.getCountries) {
         listData = data.getCountries;
     }
 
-    console.log('data inside display search result', data);
-
     const handleAddCountry = async (data) => {
-        console.log('data', data);
         let payload = {
             name: data.name,
             population: data.population,
@@ -55,7 +49,6 @@ const DisplaySearchResult = ({ searchString }) => {
             itemLayout="horizontal"
             dataSource={listData}
             renderItem={(item) => {
-                console.log('List item', item);
                 return (
                     <List.Item>
                         <List.Item.Meta
@@ -83,21 +76,13 @@ const DisplaySearchResult = ({ searchString }) => {
 };
 
 const CountryDetails = () => {
-    const children = [];
     const [searchValue, setSearchValue] = useState('');
-    for (let i = 10; i < 36; i++) {
-        children.push(
-            <Option key={i.toString(36) + i}>
-                {i.toString(36) + i}
-            </Option>,
-        );
-    }
 
     const onSearch = (value) => {
-        console.log(`selected ${value}`);
         setSearchValue(value);
         // using debounce concept to make functions calls.
     };
+    // FIXME: route all the request from debounce function...
     const debounceOnSearch = useCallback(
         debounce('onSearch', 2000),
         [],
