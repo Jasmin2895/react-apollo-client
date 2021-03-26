@@ -17,7 +17,6 @@ export const postLoginAPI = async (name, password) => {
         );
         if (data) {
             document.cookie = `auth-token=${data.token}`;
-            // window.cookie.set("auth-token", data.token)
         }
         return data;
     } catch (error) {

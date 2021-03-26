@@ -5,9 +5,11 @@ import getCookie from './../utils/getCookie';
 const beforeRequest = (config) => {
     let headers = {};
     let defaultHeaders = config.headers;
-    // if(config &&config.url != "/api/v1/login"){
-    //     headers["auth-token"] = document.cookie["auth-token"];
-    // }
+    if (config && config.url != '/api/v1/login') {
+        headers['Authorization'] = `Bearer ${getCookie(
+            'auth-token',
+        )}`;
+    }
 
     // const currentTime = new Date().getTime();
 
@@ -17,13 +19,14 @@ const beforeRequest = (config) => {
 };
 
 const createAxios = (baseURL) => {
-    console.log('baseURL', baseURL);
     const axiosInstance = axios.create({
         baseURL,
     });
 
     axiosInstance.interceptors.request.use(
-        (config) => (beforeRequest ? beforeRequest(config) : config),
+        (config) => {
+            return beforeRequest ? beforeRequest(config) : config;
+        },
         (error) => Promise.reject(error),
     );
 

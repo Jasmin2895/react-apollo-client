@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Tag, Input, Row, Button } from 'antd';
+import { Table, Tag, Input, Row } from 'antd';
 import { getCountryDetails } from './../../apis/apiEndpoints';
 import Navbar from './../Navbar';
 
@@ -65,8 +65,9 @@ const SavedCountryList = () => {
                 <Row className="calculate-cost">
                     <h3>Enter value</h3>
                     <Input
+                        min={1}
+                        placeholder="Enter value in number..."
                         className="calculate-cost-input"
-                        placeholder="Enter the value in number..."
                         style={{ width: 400 }}
                         onPressEnter={(e) => onChange(e)}
                     />
