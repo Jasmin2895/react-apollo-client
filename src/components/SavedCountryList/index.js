@@ -12,7 +12,6 @@ const SavedCountryList = () => {
     useEffect(() => {
         async function getCountriesList() {
             const data = await getCountryDetails();
-            console.log('getCountriesList', data);
             updateCountriesData(data);
         }
         getCountriesList();

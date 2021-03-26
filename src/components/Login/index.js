@@ -10,12 +10,10 @@ const Login = () => {
     const history = useHistory();
     const [error, setError] = useState(false);
     const onFinish = async (values) => {
-        console.log('Received values of form: ', values);
         const data = await postLoginAPI(
             values.username,
             values.password,
         );
-        console.log('login result', data);
         // change to success message from server.
         if (data) {
             history.push('/country-details');
@@ -27,7 +25,7 @@ const Login = () => {
     return (
         <div>
             <Row className="app-name">
-                <h1>AnyFin Technical Assignment</h1>
+                <h1>Anyfin Technical Assignment</h1>
             </Row>
             <Card className="login-card">
                 <Form
