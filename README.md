@@ -1,2 +1,2 @@
-# AnyfinAssignmentClientSide
-Client side for Anyfin Assignment
+# react-apollo-client
+
